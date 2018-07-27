@@ -123,7 +123,7 @@ class BasePlugin:
 					sensorName = sensorBaseName + "Moisture"
 					Domoticz.Debug("Creating first sensor, #"+str(sensorNumber))
 					Domoticz.Debug("Creating first sensor, name: "+str(sensorName))
-					Domoticz.Device(Name=sensorName, Unit=sensorNumber, TypeName="Percentage", Used=1).Create()   
+					Domoticz.Device(Name=sensorName, Unit=sensorNumber, TypeName="Humidity", Used=1).Create()
 					Domoticz.Log("Created device: "+Devices[sensorNumber].Name)
 
 					#temperature
@@ -163,8 +163,9 @@ class BasePlugin:
 
 		sensorNumber1 = (idx*4) + 2
 		val_moist = "{}".format(poller.parameter_value(MI_MOISTURE))
-		Devices[sensorNumber1].Update(nValue=nValue, sValue=val_moist, BatteryLevel=val_bat)
-		Domoticz.Log("moisture = " + str(val_moist))
+		humidity=  str(val_moist) + ', "0"'
+		Devices[sensorNumber1].Update(nValue=nValue, sValue=humidity, BatteryLevel=val_bat) # 0=Normal
+		Domoticz.Log("humidity = " + humidity)
 
 		#temperature
 
